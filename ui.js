@@ -35,4 +35,14 @@ class UI {
   setLocation(location) {
     document.getElementById('location').innerText = Utils.capitalize(location);
   }
+
+  setWeatherDesc(weather) {
+    document.getElementById('w-desc').innerText = Utils.capitalize(weather[0].description);
+  }
+
+  setTemperature(temp) {
+    const formattedTemp = temp;
+    
+    document.getElementById('w-temp').innerText = temp;
+  }
 }

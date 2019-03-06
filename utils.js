@@ -4,6 +4,9 @@ class Utils {
     const capitalisedArray = messageArray.map(word => {
       return word.charAt(0).toUpperCase() + word.slice(1, word.length);
     });
-    return capitalisedArray;
+    const messageString = capitalisedArray.reduce((prev, curr) => {
+      return `${prev} ${curr}`;
+    });
+    return messageString;
   }
 }
