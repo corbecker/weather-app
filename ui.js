@@ -1,4 +1,11 @@
 class UI {
+  constructor() {
+    this.location = document.getElementById('location');
+    this.description = document.getElementById('w-desc');
+    this.date = document.querySelector('.date');
+    this.temperature = document.getElementById('w-temp');
+    this.details = document.getElementById('w-details');
+  }
   setDate() {
     const now = new Date;
     let day = 0;
@@ -29,29 +36,28 @@ class UI {
         break;
     }
 
-    document.querySelector('.date').textContent = `${day} ${hours}:${minutes < 10 ? '0'+ minutes : minutes }`;
+    this.date.textContent = `${day} ${hours}:${minutes < 10 ? '0'+ minutes : minutes }`;
   }
 
   setLocation(location) {
-    document.getElementById('location').innerText = Utils.capitalize(location);
+    this.location.innerText = Utils.capitalize(location);
   }
 
   setWeatherDesc(weather) {
-    document.getElementById('w-desc').innerText = Utils.capitalize(weather[0].description);
+    this.description.innerText = Utils.capitalize(weather[0].description);
   }
 
   setTemperature(data) {
     const formattedTemp = Math.round(data.main.temp);
     
-    document.getElementById('w-temp').innerHTML = `
+    this.temperature.innerHTML = `
       ${formattedTemp}<sup>&#8451;</sup>
       <img src="http://openweathermap.org/img/w/${data.weather[0].icon}.png">
     `;
   }
 
   setDetailedWeather(data){
-    const list = document.getElementById('w-details');
-    list.innerHTML = `
+    this.details.innerHTML = `
     <table class="table table-default">
     <thead>
       <tr>
