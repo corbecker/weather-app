@@ -4,6 +4,7 @@ ui.setDate();
 document.getElementById('location-form').addEventListener('submit', getWeather);
 
 function getWeather(e) {
+  e.preventDefault();
   
   let city = '';
   // Local storage instance
