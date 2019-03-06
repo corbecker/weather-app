@@ -1,16 +1,28 @@
 const ui = new UI;
-
 ui.setDate();
-
-
 
 document.getElementById('location-form').addEventListener('submit', getWeather);
 
 function getWeather(e) {
-  // Get locatoin search input
+  
   let city = '';
-  e ? city = e.target.firstElementChild.value : city = 'dublin';
+  // Local storage instance
+  const storage = new Storage;
+
+  // If nothing in local storage and first load
+  if(e.currentTarget === document && storage.getCity() === null){
+    city = 'dublin';
+  } else if((e.currentTarget === document && storage.getCity !== '')){
+    // Use local storage city
+    city = storage.getCity();
+  }else {
+    // Use form submitted city
+    city = e.target.firstElementChild.value;
+  }
+
   const weather = new Weather(city);
+
+
   //Request weather data for that location
   weather.getCurrentWeather(city)
     .then(data => {
@@ -23,6 +35,7 @@ function getWeather(e) {
         ui.setWeatherDesc(data.weather);
         ui.setTemperature(data);
         ui.setDetailedWeather(data);
+        storage.setCity(city);
       }
     })
     .catch(err => {
@@ -31,4 +44,4 @@ function getWeather(e) {
     
 }
 
-getWeather();
+document.addEventListener('DOMContentLoaded', getWeather);
